@@ -34,26 +34,27 @@ const getRandomInteger = (a, b) => {
   return Math.floor(result);
 };
 
-
 // Функция создания уникального числа
 const getUniqueNumber = () => {
   let number = 0;
   return function () {
-    number += 1;
-    return number;
+    return number++;
   };
 };
 
 const photoId = getUniqueNumber ();
 const commentId = getUniqueNumber ();
 const urlNumber = getUniqueNumber ();
+const avatarNumber = getRandomInteger(1, 6);
+const likesCount = getRandomInteger(15, 200);
+const commentsCount = getRandomInteger(0, 30);
 
 // Функция получения рандомного элемента массива
 const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
 
 const getComment = () => ({
   id: commentId(),
-  avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
+  avatar: `img/avatar-${avatarNumber}.svg`,
   message: getRandomArrayElement(MESSAGE),
   name: getRandomArrayElement(NAMES),
 });
@@ -63,8 +64,8 @@ const createPhotoDescription = () => ({
   id: photoId(),
   url: `photos/${urlNumber()}.jpg`,
   description: getRandomArrayElement(DESCRIPTION),
-  likes: getRandomInteger(15, 200),
-  comments: Array.from({length: getRandomInteger(0, 30)}, getComment),
+  likes: likesCount,
+  comments: Array.from({length: commentsCount}, getComment),
 });
 
 const photoDescription = Array.from({length: PUBLISHED_IMG_COUNT}, createPhotoDescription);
