@@ -53,6 +53,6 @@ const createPhotoDescription = () => ({
   comments: Array.from({length: commentsCount}, getComment),
 });
 
-const photoDescription = Array.from({length: PUBLISHED_IMG_COUNT}, createPhotoDescription);
+const photoDescription = () => Array.from({length: PUBLISHED_IMG_COUNT}, createPhotoDescription);
 
-photoDescription();
+export {photoDescription};
