@@ -33,13 +33,13 @@ const MESSAGE = [
 const photoId = getUniqueNumber ();
 const commentId = getUniqueNumber ();
 const urlNumber = getUniqueNumber ();
-const avatarNumber = getRandomInteger(1, 6);
-const likesCount = getRandomInteger(15, 200);
-const commentsCount = getRandomInteger(0, 30);
+const avatarNumber = () => getRandomInteger(1, 6);
+const likesCount = () => getRandomInteger(15, 200);
+const commentsCount = () => getRandomInteger(0, 30);
 
 const getComment = () => ({
   id: commentId(),
-  avatar: `img/avatar-${avatarNumber}.svg`,
+  avatar: `img/avatar-${avatarNumber()}.svg`,
   message: getRandomArrayElement(MESSAGE),
   name: getRandomArrayElement(NAMES),
 });
@@ -49,8 +49,8 @@ const createPhotoDescription = () => ({
   id: photoId(),
   url: `photos/${urlNumber()}.jpg`,
   description: getRandomArrayElement(DESCRIPTION),
-  likes: likesCount,
-  comments: Array.from({length: commentsCount}, getComment),
+  likes: likesCount(),
+  comments: Array.from({length: commentsCount()}, getComment),
 });
 
 const photoDescription = () => Array.from({length: PUBLISHED_IMG_COUNT}, createPhotoDescription);
