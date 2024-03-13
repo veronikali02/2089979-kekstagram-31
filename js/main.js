@@ -1,2 +1,2 @@
 import './util.js';
-import './create-miniature.js';
+import './big-photo-modal.js';
