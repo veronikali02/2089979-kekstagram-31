@@ -1,15 +1,14 @@
-import {photoDescription} from './create-photo-description.js';
+import {photos} from './create-photo-description.js';
 
 const picturesList = document.querySelector('.pictures');
-
 const userPhotoTemplate = document.querySelector('#picture').content.querySelector('.picture');
-
-const otherUsersPhoto = photoDescription();
 
 const otherUsersPhotoFragment = document.createDocumentFragment();
 
-otherUsersPhoto.forEach(({url, description, likes, comments}) => {
+photos.forEach(({id, url, description, likes, comments}) => {
   const userPhoto = userPhotoTemplate.cloneNode(true);
+
+  userPhoto.dataset.photoId = id;
   userPhoto.querySelector('.picture__img').src = url;
   userPhoto.querySelector('.picture__img').alt = description;
   userPhoto.querySelector('.picture__likes').textContent = likes;
@@ -19,4 +18,4 @@ otherUsersPhoto.forEach(({url, description, likes, comments}) => {
 
 picturesList.appendChild(otherUsersPhotoFragment);
 
-export {picturesList, otherUsersPhoto};
+export {picturesList};
