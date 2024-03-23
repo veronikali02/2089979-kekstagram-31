@@ -17,6 +17,13 @@ const getUniqueNumber = () => {
 // Функция получения рандомного элемента массива
 const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
 
+const numDecline = (num, nominative, genitiveSingular, genitivePlural) => {
+  if (num % 10 === 0 || num % 100 > 4 && num % 100 < 21) {
+    return genitivePlural;
+  }
+  return num % 10 === 1 ? nominative : genitiveSingular;
+};
+
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
-export {getRandomInteger, getUniqueNumber, getRandomArrayElement, isEscapeKey};
+export {getRandomInteger, getUniqueNumber, getRandomArrayElement, numDecline, isEscapeKey};

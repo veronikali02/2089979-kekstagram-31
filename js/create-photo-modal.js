@@ -1,5 +1,5 @@
 import {photos} from './create-photo-description.js';
-import {modal} from './photo-modal.js';
+import {modal} from './modal.js';
 import {renderComments} from './render-comments.js';
 
 function createPhotoModal (photoId) {
