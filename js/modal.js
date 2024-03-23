@@ -2,7 +2,7 @@ import {createPhotoModal} from './create-photo-modal.js';
 import {picturesList} from './create-miniature.js';
 import {clearComments} from './render-comments.js';
 import {isEscapeKey} from './util.js';
-import {imgUploadForm, imgUploadOverlay} from './img-upload-form.js';
+import {openUploadForm, closeUploadForm} from './img-upload-form.js';
 
 const modal = document.querySelector('.big-picture');
 const closeModalBtn = document.querySelector('.big-picture__cancel');
@@ -19,21 +19,6 @@ const onDocumentKeydown = (evt) => {
     closeUploadForm();
   }
 };
-
-function openUploadForm () {
-  imgUploadForm.querySelector('.img-upload__overlay').classList.remove('hidden');
-  document.body.classList.add('modal-open');
-
-  document.addEventListener('keydown', onDocumentKeydown);
-}
-
-function closeUploadForm () {
-  imgUploadOverlay.classList.add('hidden');
-  document.body.classList.remove('modal-open');
-  imgUploadForm.reset();
-
-  document.removeEventListener('keydown', onDocumentKeydown);
-}
 
 imgUploadInput.addEventListener('change', (evt) => {
   evt.preventDefault();
@@ -75,4 +60,4 @@ closeModalBtn.addEventListener('click', (evt) => {
   closePhotoModal();
 });
 
-export {modal};
+export {modal, onDocumentKeydown};
