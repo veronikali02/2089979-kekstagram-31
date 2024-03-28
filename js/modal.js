@@ -60,4 +60,4 @@ closeModalBtn.addEventListener('click', (evt) => {
   closePhotoModal();
 });
 
-export {modal, onDocumentKeydown};
+export {modal, openPhotoModal, closePhotoModal, onDocumentKeydown};
