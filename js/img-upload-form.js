@@ -1,6 +1,8 @@
 import {onDocumentKeydown} from './modal.js';
 import {onPhotoEffectChange} from './slider-effects.js';
 import {error, isHashtagValid} from './hashtag-validity.js';
+import {showErrorAlert} from './util.js';
+import {sendData} from './api.js';
 
 const SCALE_STEP = 0.25;
 
@@ -13,6 +15,12 @@ const scaleControl = imgUploadForm.querySelector('.scale__control--value');
 const effectsLevel = imgUploadForm.querySelector('.img-upload__effect-level');
 const effectsList = imgUploadForm.querySelector('.effects__list');
 const inputHashtag = imgUploadForm.querySelector('.text__hashtags');
+const submitButton = imgUploadForm.querySelector('.img-upload__submit');
+
+const SubmitButtonText = {
+  IDLE: 'Сохранить',
+  SENDING: 'Сохраняю...'
+};
 
 let scale = 1;
 
@@ -26,13 +34,31 @@ const onHashtagInput = () => {
   isHashtagValid(inputHashtag.value);
 };
 
-const onFormSubmit = (evt) => {
-  evt.preventDefault();
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = SubmitButtonText.SENDING;
+};
 
-  if (pristine.validate()) {
-    inputHashtag.value = inputHashtag.value.trim().replaceAll(/\s+/g, ' ');
-    imgUploadForm.submit();
-  }
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = SubmitButtonText.IDLE;
+};
+
+const setUserFormSubmit = (onSuccess) => {
+  imgUploadForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    if (pristine.validate()) {
+      inputHashtag.value = inputHashtag.value.trim().replaceAll(/\s+/g, ' ');
+      blockSubmitButton();
+      sendData(new FormData(evt.target))
+        .then(onSuccess)
+        .catch((err) => {
+          showErrorAlert(err.message);
+        })
+        .finally(unblockSubmitButton);
+    }
+  });
 };
 
 const onSmallerClick = () => {
@@ -73,9 +99,8 @@ function closeUploadForm () {
 pristine.addValidator(inputHashtag, isHashtagValid, error, 2, false);
 
 inputHashtag.addEventListener('input', onHashtagInput);
-imgUploadForm.addEventListener('submit', onFormSubmit);
 smallerBtn.addEventListener('click', onSmallerClick);
 biggerBtn.addEventListener('click', onBiggerClick);
 effectsList.addEventListener('change', onPhotoEffectChange);
 
-export {imgUploadForm, openUploadForm, closeUploadForm};
+export {imgUploadForm, setUserFormSubmit, openUploadForm, closeUploadForm};
