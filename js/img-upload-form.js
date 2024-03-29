@@ -1,7 +1,7 @@
 import {onDocumentKeydown} from './modal.js';
 import {onPhotoEffectChange} from './slider-effects.js';
 import {error, isHashtagValid} from './hashtag-validity.js';
-import {showErrorAlert} from './util.js';
+import {showErrorAlert, showSuccessAlert} from './util.js';
 import {sendData} from './api.js';
 
 const SCALE_STEP = 0.25;
@@ -18,7 +18,7 @@ const inputHashtag = imgUploadForm.querySelector('.text__hashtags');
 const submitButton = imgUploadForm.querySelector('.img-upload__submit');
 
 const SubmitButtonText = {
-  IDLE: 'Сохранить',
+  IDLE: 'Опубликовать',
   SENDING: 'Сохраняю...'
 };
 
@@ -48,13 +48,17 @@ const setUserFormSubmit = (onSuccess) => {
   imgUploadForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
-    if (pristine.validate()) {
-      inputHashtag.value = inputHashtag.value.trim().replaceAll(/\s+/g, ' ');
+    const isValid = pristine.validate();
+    if (isValid) {
       blockSubmitButton();
+      inputHashtag.value = inputHashtag.value.trim().replaceAll(/\s+/g, ' ');
       sendData(new FormData(evt.target))
+        .then(() => {
+          showSuccessAlert();
+        })
         .then(onSuccess)
-        .catch((err) => {
-          showErrorAlert(err.message);
+        .catch(() => {
+          showErrorAlert();
         })
         .finally(unblockSubmitButton);
     }

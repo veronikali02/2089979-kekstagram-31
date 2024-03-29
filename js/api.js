@@ -1,5 +1,6 @@
-const BASE_URL = 'https://31.javascript.htmlacademy.pro/kekstagram';
+import {dataErrorAlert, showErrorAlert} from './util.js';
 
+const BASE_URL = 'https://31.javascript.htmlacademy.pro/kekstagram';
 const Route = {
   GET_DATA: '/data',
   SEND_DATA: '/',
@@ -10,18 +11,17 @@ const Method = {
   POST: 'POST',
 };
 
-const ErrorText = {
-  [Method.GET]: 'Не удалось загрузить данные. Попробуйте еще раз',
-  [Method.POST]: 'Не удалось отправить данные формы',
-};
-
-const load = async (route, method = Method.GET, body = null) => {
+const load = async (route, errorText, method = Method.GET, body = null) => {
   const response = await fetch(`${BASE_URL}${route}`, {method, body});
-  return response.ok ? await response.json() : Promise.reject(ErrorText[method]);
+  if (response.ok) {
+    return await response.json();
+  } else if (!response.ok) {
+    return Promise.reject(errorText());
+  }
 };
 
-const getData = async () => await load(Route.GET_DATA);
+const getData = async () => load(Route.GET_DATA, dataErrorAlert);
 
-const sendData = async (body) => await load(Route.SEND_DATA, Method.POST, body);
+const sendData = async (body) => load(Route.SEND_DATA, showErrorAlert, Method.POST, body);
 
 export {getData, sendData};
