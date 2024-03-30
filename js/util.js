@@ -1,4 +1,7 @@
-// const ALERT_SHOW_TIME = 5000;
+const ALERT_SHOW_TIME = 5000;
+
+const errorModal = document.querySelector('#error').content.querySelector('.error');
+const successModal = document.querySelector('#success').content.querySelector('.success');
 
 // Функция получения рандомного числа
 // const getRandomInteger = (a, b) => {
@@ -29,8 +32,8 @@ const numDecline = (num, nominative, genitiveSingular, genitivePlural) => {
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
 const closeAlert = () => {
-  document.querySelector('.error').remove();
-  document.querySelector('.success').remove();
+  errorModal.remove();
+  successModal.remove();
 };
 
 const onDocumentKeydown = (evt) => {
@@ -40,32 +43,47 @@ const onDocumentKeydown = (evt) => {
   }
 };
 
-const showErrorAlert = () => {
-  const errorTemplate = document.querySelector('#error').content.querySelector('.error');
-  const errorBtn = errorTemplate.querySelector('.error__button');
-  const error = errorTemplate.cloneNode(true);
+const dataErrorAlert = () => {
+  const dataErrorTemplate = document.querySelector('#data-error').content.querySelector('.data-error');
+  const dataError = dataErrorTemplate.cloneNode(true);
 
-  document.body.append(error);
+  document.body.append(dataError);
+
+  setTimeout(() => {
+    dataError.remove();
+  }, ALERT_SHOW_TIME);
+};
+
+const showErrorAlert = () => {
+  const errorBtn = errorModal.querySelector('.error__button');
+
+  document.body.append(errorModal);
 
   errorBtn.addEventListener('click', () => {
-    error.remove();
+    closeAlert();
   });
 
   document.addEventListener('keydown', onDocumentKeydown);
 };
 
 const showSuccessAlert = () => {
-  const successTemplate = document.querySelector('#success').content.querySelector('.success');
-  const successBtn = successTemplate.querySelector('.success__button');
-  const success = successTemplate.cloneNode(true);
+  const successBtn = successModal.querySelector('.success__button');
 
-  document.body.append(success);
+  document.body.append(successModal);
 
   successBtn.addEventListener('click', () => {
-    success.remove();
+    closeAlert();
   });
 
   document.addEventListener('keydown', onDocumentKeydown);
 };
 
-export {numDecline, showErrorAlert, showSuccessAlert, isEscapeKey};
+function debounce (callback, timeoutDelay = 500) {
+  let timeoutId;
+  return function () {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback(...arguments), timeoutDelay);
+  };
+}
+
+export {numDecline, showErrorAlert, showSuccessAlert, dataErrorAlert, debounce, isEscapeKey};
