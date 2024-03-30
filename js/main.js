@@ -1,5 +1,6 @@
 import './util.js';
 import './modal.js';
+import './upload-photo-preview.js';
 import {configFilter} from './filter.js';
 import {savePhotos} from './create-photo-modal.js';
 import {getData} from './api.js';
