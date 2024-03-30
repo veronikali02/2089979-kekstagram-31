@@ -78,4 +78,12 @@ const showSuccessAlert = () => {
   document.addEventListener('keydown', onDocumentKeydown);
 };
 
-export {numDecline, showErrorAlert, showSuccessAlert, dataErrorAlert, isEscapeKey};
+function debounce (callback, timeoutDelay = 500) {
+  let timeoutId;
+  return function () {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback(...arguments), timeoutDelay);
+  };
+}
+
+export {numDecline, showErrorAlert, showSuccessAlert, dataErrorAlert, debounce, isEscapeKey};

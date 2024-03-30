@@ -2,6 +2,7 @@ const picturesList = document.querySelector('.pictures');
 const userPhotoTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
 const renderUsersPhotos = (data) => {
+  clearPhotoList();
   const otherUsersPhotoFragment = document.createDocumentFragment();
 
   data.forEach(({id, url, description, likes, comments}) => {
@@ -17,5 +18,9 @@ const renderUsersPhotos = (data) => {
 
   picturesList.appendChild(otherUsersPhotoFragment);
 };
+
+function clearPhotoList () {
+  picturesList.querySelectorAll('a.picture').forEach((item) => item.remove());
+}
 
 export {renderUsersPhotos, picturesList};
