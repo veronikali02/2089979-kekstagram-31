@@ -1,13 +1,15 @@
 import {renderUsersPhotos} from './create-miniature.js';
 import {debounce} from './util.js';
 import {FILTER, SORTFUNC, MAX_PICTURE_COUNT} from './const.js';
+import {DEBOUNCE_DELAY} from './const.js';
 
 let currentFilter = FILTER.default;
 let pictures = [];
+
 const filterElement = document.querySelector('.img-filters');
 const ACTIVE_BUTTON_CLASS = 'img-filters__button--active';
 
-const debounceRender = debounce(renderUsersPhotos);
+const debounceRender = debounce(renderUsersPhotos, DEBOUNCE_DELAY);
 
 function onFilterChange (evt) {
   const targetButton = evt.target;
@@ -43,7 +45,7 @@ function applyFilter () {
     filteredPictures = pictures.slice().sort(SORTFUNC.discussed);
   }
 
-  debounceRender(filteredPictures);
+  debounceRender(filteredPictures, DEBOUNCE_DELAY);
 }
 
 function configFilter (photos) {

@@ -58,7 +58,7 @@ const setUserFormSubmit = (onSuccess) => {
         })
         .then(onSuccess)
         .catch(() => {
-          showErrorAlert();
+          throw new Error(showErrorAlert());
         })
         .finally(unblockSubmitButton);
     }

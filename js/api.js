@@ -11,17 +11,34 @@ const Method = {
   POST: 'POST',
 };
 
-const load = async (route, errorText, method = Method.GET, body = null) => {
-  const response = await fetch(`${BASE_URL}${route}`, {method, body});
-  if (response.ok) {
-    return await response.json();
-  } else if (!response.ok) {
-    return Promise.reject(errorText());
-  }
-};
+// const load = async (route, errorText, method = Method.GET, body = null) => {
+//   const response = await fetch(`${BASE_URL}${route}`, {method, body});
+//   if (response.ok) {
+//     return await response.json();
+//   } else if (!response.ok) {
+//     return Promise.reject(errorText());
+//   }
+// };
 
-const getData = async () => load(Route.GET_DATA, dataErrorAlert);
+// const getData = async () => load(Route.GET_DATA, dataErrorAlert);
 
-const sendData = async (body) => load(Route.SEND_DATA, showErrorAlert, Method.POST, body);
+// const sendData = async (body) => load(Route.SEND_DATA, showErrorAlert, Method.POST, body);
+
+const load = (route, errorText, method = Method.GET, body = null) =>
+  fetch(`${BASE_URL}${route}`, {method, body})
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        errorText();
+      }
+    })
+    .catch(() => {
+      errorText();
+    });
+
+const getData = () => load(Route.GET_DATA, dataErrorAlert);
+
+const sendData = (body) => load(Route.SEND_DATA, showErrorAlert, Method.POST, body);
 
 export {getData, sendData};
