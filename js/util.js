@@ -1,5 +1,3 @@
-import {DEBOUNCE_DELAY} from './const.js';
-
 const ALERT_SHOW_TIME = 5000;
 
 const errorModal = document.querySelector('#error').content.querySelector('.error');
@@ -80,11 +78,19 @@ const showSuccessAlert = () => {
   document.addEventListener('keydown', onDocumentKeydown);
 };
 
-function debounce (callback, timeoutDelay = DEBOUNCE_DELAY) {
+// function debounce (callback, timeoutDelay = DEBOUNCE_DELAY) {
+//   let timeoutId;
+//   return function () {
+//     clearTimeout(timeoutId);
+//     timeoutId = setTimeout(() => callback(...arguments), timeoutDelay);
+//   };
+// }
+
+function debounce (callback, timeoutDelay) {
   let timeoutId;
-  return function () {
+  return (...rest) => {
     clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => callback(...arguments), timeoutDelay);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
   };
 }
 
