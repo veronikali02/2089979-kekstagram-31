@@ -96,6 +96,7 @@ function closeUploadForm () {
   effectsLevel.classList.add('hidden');
   imgPreview.style.filter = 'none';
   imgUploadForm.reset();
+  pristine.reset();
 
   document.removeEventListener('keydown', onDocumentKeydown);
 }
