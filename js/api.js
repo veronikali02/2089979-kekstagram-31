@@ -18,11 +18,11 @@ const load = (route, errorText, method = Method.GET, body = null) =>
       if (response.ok) {
         return response.json();
       } else {
-        errorText();
+        throw new Error(errorText());
       }
     })
     .catch(() => {
-      errorText();
+      throw new Error(errorText());
     });
 
 const getData = () => load(Route.GET_DATA, dataErrorAlert);
