@@ -2,10 +2,10 @@ const imgUploadWrapper = document.querySelector('.img-upload__wrapper');
 const slider = imgUploadWrapper.querySelector('.effect-level__slider');
 const effectLevel = imgUploadWrapper.querySelector('.img-upload__effect-level');
 const effectLevelValue = imgUploadWrapper.querySelector('.effect-level__value');
-const img = imgUploadWrapper.querySelector('.img-upload__preview');
+const img = imgUploadWrapper.querySelector('.img-upload__preview img');
 
 noUiSlider.create(slider, {
-  start: 0,
+  start: 100,
   connect: 'lower',
   range: {
     'min': 0,
@@ -42,7 +42,7 @@ const onPhotoEffectChange = (evt) => {
           min: 0,
           max: 1
         },
-        start: 0,
+        start: 1,
         step: 0.1
       });
       slider.noUiSlider.on('update', () => {
@@ -55,7 +55,7 @@ const onPhotoEffectChange = (evt) => {
           min: 0,
           max: 1
         },
-        start: 0,
+        start: 1,
         step: 0.1
       });
       slider.noUiSlider.on('update', () => {
@@ -68,7 +68,7 @@ const onPhotoEffectChange = (evt) => {
           min: 0,
           max: 100
         },
-        start: 0,
+        start: 100,
         step: 1
       });
       slider.noUiSlider.on('update', () => {
@@ -81,7 +81,7 @@ const onPhotoEffectChange = (evt) => {
           min: 0,
           max: 3
         },
-        start: 0,
+        start: 3,
         step: 0.1
       });
       slider.noUiSlider.on('update', () => {
@@ -94,7 +94,7 @@ const onPhotoEffectChange = (evt) => {
           min: 1,
           max: 3
         },
-        start: 1,
+        start: 3,
         step: 0.1
       });
       slider.noUiSlider.on('update', () => {

@@ -52,11 +52,12 @@ const setUserFormSubmit = (onSuccess) => {
     if (isValid) {
       blockSubmitButton();
       inputHashtag.value = inputHashtag.value.trim().replaceAll(/\s+/g, ' ');
-      sendData(new FormData(evt.target))
+      const formData = new FormData(evt.target);
+      sendData(formData)
         .then(() => {
+          onSuccess();
           showSuccessAlert();
         })
-        .then(onSuccess)
         .catch(() => {
           throw new Error(showErrorAlert());
         })

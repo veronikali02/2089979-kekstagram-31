@@ -1,7 +1,11 @@
 const ALERT_SHOW_TIME = 5000;
 
 const errorModal = document.querySelector('#error').content.querySelector('.error');
+const errorModalInner = errorModal.querySelector('.error__inner');
+const errorBtn = errorModal.querySelector('.error__button');
 const successModal = document.querySelector('#success').content.querySelector('.success');
+const successModalInner = successModal.querySelector('.success__inner');
+const successBtn = successModal.querySelector('.success__button');
 
 const numDecline = (num, nominative, genitiveSingular, genitivePlural) => {
   if (num % 10 === 0 || num % 100 > 4 && num % 100 < 21) {
@@ -15,14 +19,38 @@ const isEscapeKey = (evt) => evt.key === 'Escape';
 const closeAlert = () => {
   errorModal.remove();
   successModal.remove();
+
+  document.removeEventListener('keydown', onDocumentKeydown);
+  errorBtn.removeEventListener('click', onErrorBtnClick);
+  successBtn.removeEventListener('click', onSuccessBtnClick);
 };
 
-const onDocumentKeydown = (evt) => {
+function onDocumentKeydown (evt) {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
     closeAlert();
   }
-};
+}
+
+function onErrorBtnClick () {
+  closeAlert();
+}
+
+function onSuccessBtnClick () {
+  closeAlert();
+}
+
+function onFadeClick () {
+  errorModalInner.addEventListener('click', (evt) => {
+    evt.stopPropagation();
+  });
+
+  successModalInner.addEventListener('click', (evt) => {
+    evt.stopPropagation();
+  });
+
+  closeAlert();
+}
 
 const dataErrorAlert = () => {
   const dataErrorTemplate = document.querySelector('#data-error').content.querySelector('.data-error');
@@ -36,27 +64,20 @@ const dataErrorAlert = () => {
 };
 
 const showErrorAlert = () => {
-  const errorBtn = errorModal.querySelector('.error__button');
-
   document.body.append(errorModal);
 
-  errorBtn.addEventListener('click', () => {
-    closeAlert();
-  });
-
+  errorBtn.addEventListener('click', onErrorBtnClick);
   document.addEventListener('keydown', onDocumentKeydown);
+  errorModal.addEventListener('click', onFadeClick);
 };
 
 const showSuccessAlert = () => {
-  const successBtn = successModal.querySelector('.success__button');
 
   document.body.append(successModal);
 
-  successBtn.addEventListener('click', () => {
-    closeAlert();
-  });
-
+  successBtn.addEventListener('click', onSuccessBtnClick);
   document.addEventListener('keydown', onDocumentKeydown);
+  successModal.addEventListener('click', onFadeClick);
 };
 
 function debounce (callback, timeoutDelay) {
