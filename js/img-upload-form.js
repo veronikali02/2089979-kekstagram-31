@@ -25,7 +25,7 @@ const SubmitButtonText = {
 let scale = 1;
 
 const pristine = new Pristine(imgUploadForm, {
-  classTo: 'img-upload__form',
+  classTo: 'img-upload__field-wrapper',
   errorTextParent: 'img-upload__field-wrapper',
   errorTextClass: 'img-upload__field-wrapper--error',
 });
@@ -59,7 +59,7 @@ const setUserFormSubmit = (onSuccess) => {
           showSuccessAlert();
         })
         .catch(() => {
-          throw new Error(showErrorAlert());
+          showErrorAlert();
         })
         .finally(unblockSubmitButton);
     }
