@@ -2,6 +2,7 @@ import {onDocumentKeydown} from './modal.js';
 import {onPhotoEffectChange} from './slider-effects.js';
 import {error, isHashtagValid} from './hashtag-validity.js';
 import {showErrorAlert, showSuccessAlert} from './util.js';
+import {SubmitButtonText} from './const.js';
 import {sendData} from './api.js';
 
 const SCALE_STEP = 0.25;
@@ -16,11 +17,6 @@ const effectsLevel = imgUploadForm.querySelector('.img-upload__effect-level');
 const effectsList = imgUploadForm.querySelector('.effects__list');
 const inputHashtag = imgUploadForm.querySelector('.text__hashtags');
 const submitButton = imgUploadForm.querySelector('.img-upload__submit');
-
-const SubmitButtonText = {
-  IDLE: 'Опубликовать',
-  SENDING: 'Сохраняю...'
-};
 
 let scale = 1;
 
@@ -57,6 +53,7 @@ const setUserFormSubmit = (onSuccess) => {
         .then(() => {
           onSuccess();
           showSuccessAlert();
+          pristine.reset();
         })
         .catch(() => {
           showErrorAlert();
@@ -97,7 +94,6 @@ function closeUploadForm () {
   effectsLevel.classList.add('hidden');
   imgPreview.style.filter = 'none';
   imgUploadForm.reset();
-  pristine.reset();
 
   document.removeEventListener('keydown', onDocumentKeydown);
 }
