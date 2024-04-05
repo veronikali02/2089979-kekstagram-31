@@ -1,3 +1,7 @@
+const MAX_PICTURE_COUNT = 10;
+
+const DEBOUNCE_DELAY = 500;
+
 const FILTER = {
   default: 'filter-default',
   random: 'filter-random',
@@ -20,8 +24,4 @@ const sortFunc = {
   discussed: (a, b) => b.comments.length - a.comments.length
 };
 
-const MAX_PICTURE_COUNT = 10;
-
-const DEBOUNCE_DELAY = 500;
-
-export {FILTER, SubmitButtonText, GenitivePluralResidue, sortFunc, MAX_PICTURE_COUNT, DEBOUNCE_DELAY};
+export {MAX_PICTURE_COUNT, DEBOUNCE_DELAY, FILTER, SubmitButtonText, GenitivePluralResidue, sortFunc};
