@@ -1,6 +1,6 @@
 import {renderUsersPhotos} from './create-miniature.js';
 import {debounce} from './util.js';
-import {FILTER, SORTFUNC, MAX_PICTURE_COUNT} from './const.js';
+import {FILTER, sortFunc, MAX_PICTURE_COUNT} from './const.js';
 import {DEBOUNCE_DELAY} from './const.js';
 
 let currentFilter = FILTER.default;
@@ -38,11 +38,11 @@ function applyFilter () {
   }
 
   if (currentFilter === FILTER.random) {
-    filteredPictures = pictures.slice().sort(SORTFUNC.random).slice(0, MAX_PICTURE_COUNT);
+    filteredPictures = pictures.slice().sort(sortFunc.random).slice(0, MAX_PICTURE_COUNT);
   }
 
   if (currentFilter === FILTER.discussed) {
-    filteredPictures = pictures.slice().sort(SORTFUNC.discussed);
+    filteredPictures = pictures.slice().sort(sortFunc.discussed);
   }
 
   debounceRender(filteredPictures, DEBOUNCE_DELAY);
