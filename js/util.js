@@ -1,4 +1,4 @@
-import {genitivePluralResidue} from './const.js';
+import {GenitivePluralResidue} from './const.js';
 
 const ALERT_SHOW_TIME = 5000;
 
@@ -10,8 +10,8 @@ const successModalInner = successModal.querySelector('.success__inner');
 const successBtn = successModal.querySelector('.success__button');
 
 const numDecline = (num, nominative, genitiveSingular, genitivePlural) => {
-  if (num % 10 === genitivePlural.variantFirst || num % 100 > genitivePlural.variantSecond
-  && num % 100 < genitivePluralResidue.variantThird) {
+  if (num % 10 === GenitivePluralResidue.variantFirst || num % 100 > GenitivePluralResidue.variantSecond
+  && num % 100 < GenitivePluralResidue.variantThird) {
     return genitivePlural;
   }
   return num % 10 === 1 ? nominative : genitiveSingular;
