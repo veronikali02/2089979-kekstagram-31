@@ -40,27 +40,28 @@ const unblockSubmitButton = () => {
   submitButton.textContent = SubmitButtonText.IDLE;
 };
 
-const setUserFormSubmit = (onSuccess) => {
-  imgUploadForm.addEventListener('submit', (evt) => {
-    evt.preventDefault();
+const onFormSubmit = (evt) => {
+  evt.preventDefault();
 
-    const isValid = pristine.validate();
-    if (isValid) {
-      blockSubmitButton();
-      inputHashtag.value = inputHashtag.value.trim().replaceAll(/\s+/g, ' ');
-      const formData = new FormData(evt.target);
-      sendData(formData)
-        .then(() => {
-          onSuccess();
-          showSuccessAlert();
-          pristine.reset();
-        })
-        .catch(() => {
-          showErrorAlert();
-        })
-        .finally(unblockSubmitButton);
-    }
-  });
+  const isValid = pristine.validate();
+  if (isValid) {
+    blockSubmitButton();
+    inputHashtag.value = inputHashtag.value.trim().replaceAll(/\s+/g, ' ');
+    const formData = new FormData(evt.target);
+    sendData(formData)
+      .then(() => {
+        closeUploadForm();
+        showSuccessAlert();
+      })
+      .catch(() => {
+        showErrorAlert();
+      })
+      .finally(unblockSubmitButton);
+  }
+};
+
+const setUserFormSubmit = () => {
+  imgUploadForm.addEventListener('submit', onFormSubmit);
 };
 
 const onSmallerClick = () => {
@@ -94,6 +95,7 @@ function closeUploadForm () {
   effectsLevel.classList.add('hidden');
   imgPreview.style.filter = 'none';
   imgUploadForm.reset();
+  pristine.reset();
 
   document.removeEventListener('keydown', onDocumentKeydown);
 }

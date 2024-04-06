@@ -6,7 +6,6 @@ import {openUploadForm, closeUploadForm} from './img-upload-form.js';
 
 const modal = document.querySelector('.big-picture');
 const closeModalBtn = document.querySelector('.big-picture__cancel');
-
 const imgUploadInput = document.querySelector('.img-upload__input');
 const imgUploadCancel = document.querySelector('.img-upload__cancel');
 

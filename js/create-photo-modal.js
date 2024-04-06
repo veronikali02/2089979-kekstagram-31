@@ -7,7 +7,7 @@ const savePhotos = (newPhotos) => {
   photos = newPhotos;
 };
 
-function createPhotoModal (photoId) {
+const createPhotoModal = (photoId) => {
   const currentPhoto = photos.find((photo) => photo.id === Number(photoId));
 
   modal.querySelector('.big-picture__img').querySelector('img').src = currentPhoto.url;
@@ -15,6 +15,6 @@ function createPhotoModal (photoId) {
   modal.querySelector('.social__caption').textContent = currentPhoto.description;
 
   renderComments(currentPhoto.comments);
-}
+};
 
 export {createPhotoModal, savePhotos};
