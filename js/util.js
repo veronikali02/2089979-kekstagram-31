@@ -24,8 +24,8 @@ const closeAlert = () => {
   successModal.remove();
 
   document.body.removeEventListener('keydown', onDocumentKeydown);
-  errorBtn.removeEventListener('click', onErrorBtnClick);
-  successBtn.removeEventListener('click', onSuccessBtnClick);
+  errorBtn.removeEventListener('click', onButtonClick);
+  successBtn.removeEventListener('click', onButtonClick);
 };
 
 function onDocumentKeydown (evt) {
@@ -37,11 +37,7 @@ function onDocumentKeydown (evt) {
   }
 }
 
-function onErrorBtnClick () {
-  closeAlert();
-}
-
-function onSuccessBtnClick () {
+function onButtonClick () {
   closeAlert();
 }
 
@@ -71,16 +67,15 @@ const dataErrorAlert = () => {
 const showErrorAlert = () => {
   document.body.append(errorModal);
 
-  errorBtn.addEventListener('click', onErrorBtnClick);
+  errorBtn.addEventListener('click', onButtonClick);
   document.body.addEventListener('keydown', onDocumentKeydown);
   errorModal.addEventListener('click', onFadeClick);
 };
 
 const showSuccessAlert = () => {
-
   document.body.append(successModal);
 
-  successBtn.addEventListener('click', onSuccessBtnClick);
+  successBtn.addEventListener('click', onButtonClick);
   document.body.addEventListener('keydown', onDocumentKeydown);
   successModal.addEventListener('click', onFadeClick);
 };

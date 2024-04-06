@@ -60,10 +60,6 @@ const onFormSubmit = (evt) => {
   }
 };
 
-const setUserFormSubmit = () => {
-  imgUploadForm.addEventListener('submit', onFormSubmit);
-};
-
 const onSmallerClick = () => {
   if (scale > SCALE_STEP) {
     scale -= SCALE_STEP;
@@ -85,6 +81,7 @@ function openUploadForm () {
   document.body.classList.add('modal-open');
 
   document.addEventListener('keydown', onDocumentKeydown);
+  imgUploadForm.addEventListener('submit', onFormSubmit);
 }
 
 function closeUploadForm () {
@@ -98,6 +95,7 @@ function closeUploadForm () {
   pristine.reset();
 
   document.removeEventListener('keydown', onDocumentKeydown);
+  imgUploadForm.removeEventListener('submit', onFormSubmit);
 }
 
 pristine.addValidator(inputHashtag, isHashtagValid, error, 2, false);
@@ -107,4 +105,4 @@ smallerBtn.addEventListener('click', onSmallerClick);
 biggerBtn.addEventListener('click', onBiggerClick);
 effectsList.addEventListener('change', onPhotoEffectChange);
 
-export {imgUploadForm, setUserFormSubmit, openUploadForm, closeUploadForm};
+export {openUploadForm, closeUploadForm};
