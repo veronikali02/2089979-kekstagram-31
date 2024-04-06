@@ -23,12 +23,14 @@ const closeAlert = () => {
   errorModal.remove();
   successModal.remove();
 
-  document.removeEventListener('keydown', onDocumentKeydown);
+  document.body.removeEventListener('keydown', onDocumentKeydown);
   errorBtn.removeEventListener('click', onErrorBtnClick);
   successBtn.removeEventListener('click', onSuccessBtnClick);
 };
 
 function onDocumentKeydown (evt) {
+  evt.stopPropagation();
+
   if (isEscapeKey(evt)) {
     evt.preventDefault();
     closeAlert();
@@ -70,7 +72,7 @@ const showErrorAlert = () => {
   document.body.append(errorModal);
 
   errorBtn.addEventListener('click', onErrorBtnClick);
-  document.addEventListener('keydown', onDocumentKeydown);
+  document.body.addEventListener('keydown', onDocumentKeydown);
   errorModal.addEventListener('click', onFadeClick);
 };
 
@@ -79,7 +81,7 @@ const showSuccessAlert = () => {
   document.body.append(successModal);
 
   successBtn.addEventListener('click', onSuccessBtnClick);
-  document.addEventListener('keydown', onDocumentKeydown);
+  document.body.addEventListener('keydown', onDocumentKeydown);
   successModal.addEventListener('click', onFadeClick);
 };
 
