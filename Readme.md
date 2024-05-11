@@ -2,6 +2,7 @@
 
 * Студент: [Вероника Лихачёва](https://up.htmlacademy.ru/javascript/31/user/2089979).
 * Наставник: `Арсений Березин`.
+* Предпросмотр проекта: https://veronikali02.github.io/Kekstagram/
 
 ---
 
